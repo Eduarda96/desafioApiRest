@@ -54,7 +54,6 @@ public class Conta {
         return saldo;
     }
 
-    @JsonIgnore
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
