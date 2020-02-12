@@ -2,12 +2,18 @@ package com.eduarda.bortoletti.desafioApiRest.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
-@Entity
+@Entity(name = "conta")
 public class Conta {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "nome")
     private String nome;
+    @Column(name = "conta")
     private int conta;
+    @Column(name = "saldo")
     private double saldo;
 
     public Conta() {
@@ -17,6 +23,15 @@ public class Conta {
         this.nome = nome;
         this.conta = conta;
         this.saldo = saldo;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {

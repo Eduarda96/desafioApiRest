@@ -1,12 +1,16 @@
 package com.eduarda.bortoletti.desafioApiRest.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
-@Entity
+@Entity(name = "comprovante")
 public class ComprovanteTransferencia {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "cod_transferencia")
     private int codTransferencia;
-    private Conta contaOrigem;
-    private Conta contaDestino;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Conta contaOrigem, contaDestino;
 
     public int getCodTransferencia() {
         return codTransferencia;

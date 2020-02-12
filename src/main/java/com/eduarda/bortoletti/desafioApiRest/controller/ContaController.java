@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,22 +22,26 @@ public class ContaController {
     private Conta contaOrigem;
     private Conta contaDestino;
 
-    @PostMapping(path = "/transferencia")
-    public HttpStatus transferencia(Transferencia transferencia){
+    @RequestMapping("/")
+    public String home() {
+        return "Ola";
+    }
+    @RequestMapping(method = RequestMethod.GET, path = "/transferencia")
+    public HttpStatus transferencia(Transferencia transferencia) {
         inicializarContas();
         ComprovanteTransferencia comprovanteTransferencia = efetuarTransferencia(transferencia);
-        if(comprovanteTransferencia != null){
+        if (comprovanteTransferencia != null) {
             msgRetorno = gson.toJson(comprovanteTransferencia);
             return HttpStatus.OK;
-        }else{
+        } else {
             return HttpStatus.CONFLICT;
         }
     }
 
 
     private void inicializarContas() {
-    contaOrigem = new Conta("Eduarda Bortoletti",324,1500);
-    contaDestino = new Conta("Brenda Danni",432,2000);
+        contaOrigem = new Conta("Eduarda Bortoletti", 324, 1500);
+        contaDestino = new Conta("Brenda Danni", 432, 2000);
     }
 
     //efetua transferencia e verica qual conta está retirando e qual está recebendo
@@ -71,7 +76,7 @@ public class ContaController {
 
             comprovante.setContaOrigem(contaOrigem);
             comprovante.setContaDestino(contaDestino);
-        }else {
+        } else {
             return null;
         }
 

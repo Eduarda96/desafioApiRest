@@ -1,12 +1,16 @@
 package com.eduarda.bortoletti.desafioApiRest.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
-@Entity
+@Entity(name = "transferencia")
 public class Transferencia {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "valor")
     private double valor;
-    private Conta contaOrigem;
-    private Conta contaDestino;
+    @ManyToOne
+    private Conta contaOrigem,contaDestino;
 
     public double getValor() {
         return valor;
