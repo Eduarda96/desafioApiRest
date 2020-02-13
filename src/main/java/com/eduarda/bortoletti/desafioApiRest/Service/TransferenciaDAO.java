@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransferenciaDAO {
     @Autowired
     TransferenciaRepository repository;
+
+    public Optional<Transferencia> findById(Long id) {
+        return repository.findById(id);
+    }
 
     public Transferencia salvar(Transferencia transferencia) {
         return repository.save(transferencia);

@@ -5,7 +5,6 @@ import com.eduarda.bortoletti.desafioApiRest.Service.TransferenciaDAO;
 import com.eduarda.bortoletti.desafioApiRest.model.ComprovanteTransferencia;
 import com.eduarda.bortoletti.desafioApiRest.model.Conta;
 import com.eduarda.bortoletti.desafioApiRest.model.Transferencia;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api")
@@ -29,23 +30,25 @@ public class ContaController {
     TransferenciaDAO transferenciaDAO;
 
     @PostMapping("/conta")
-    public Conta criarConta(@Valid @RequestBody Conta conta){
+    public Conta criarConta(@Valid @RequestBody Conta conta) {
         return contaDAO.salvar(conta);
     }
+
     @GetMapping("/conta")
-    public List<Conta> contaList(){
+    public List<Conta> contaList() {
         return contaDAO.listar();
     }
 
     @PostMapping("/transferencia")
-    public Transferencia criarTransferencia(@Valid @RequestBody Transferencia transferencia){
+    public Transferencia criarTransferencia(@Valid @RequestBody Transferencia transferencia) {
         return transferenciaDAO.salvar(transferencia);
     }
 
     @GetMapping("/transferencia")
-    public List<Transferencia> transferenciaList(){
+    public List<Transferencia> transferenciaList() {
         return transferenciaDAO.listar();
     }
+
     @RequestMapping("/")
     public String home() {
         return "Ola";
@@ -69,7 +72,7 @@ public class ContaController {
     }
 
     //efetua transferencia e verica qual conta está retirando e qual está recebendo
-    @RequestMapping(method=RequestMethod.GET, path="/efetuarTransferencia" )
+    @RequestMapping(method = RequestMethod.GET, path = "/efetuarTransferencia")
     private ComprovanteTransferencia efetuarTransferencia(Transferencia transferencia) {
        /* ComprovanteTransferencia comprovante = new ComprovanteTransferencia();
 //        comprovante.setCodTransferencia(transferencia.hashCode());
@@ -110,16 +113,19 @@ public class ContaController {
         double saldoOrigem = 0;
         double saldoDestino = 0;
 
-        for(Conta conta : listar){
-            for(Transferencia transf : listaTransferencia){
+        for (Conta conta : listar) {
+            for (Transferencia transf : listaTransferencia) {
+                if (conta.getId().equals(transf.getContaOrigem().getId())) {
                     saldoOrigem = conta.getSaldo() - transf.getValor();
+                }
+                if (conta.getId().equals(transf.getContaDestino().getId())) {
                     saldoDestino = conta.getSaldo() + transferencia.getValor();
+                }
             }
         }
 
         ComprovanteTransferencia comprovanteTransferencia = new ComprovanteTransferencia();
         comprovanteTransferencia.setCodTransferencia(1);
-
 
         contaOrigem.setSaldo(saldoOrigem);
         contaDestino.setSaldo(saldoDestino);
@@ -129,9 +135,22 @@ public class ContaController {
 
     }
 
-   /* @RequestMapping(method=RequestMethod.PUT, path="depositar/{quantidade}/{id}" )
-    public ResponseEntity<?> depositar(@PathVariable double quantidade, @PathVariable Long id){
-        this.contaDAO.deposita();
-        return new ResponseEntity<>( HttpStatus.OK);
-    }*/
+    @RequestMapping(method = RequestMethod.PUT, path = "depositar/{quantidade}/{id}")
+    public ResponseEntity<Transferencia> depositar(@PathVariable double quantidade,
+                                                   @PathVariable Long id, @Valid @RequestBody Transferencia newTransf) {
+        Optional<Transferencia> transferenciaOptional = transferenciaDAO.findById(id);
+        contaOrigem = contaDAO.listar().get(0);
+        contaDestino = contaDAO.listar().get(1);
+        if (transferenciaOptional.isPresent()) {
+            Transferencia transferencia = transferenciaOptional.get();
+            transferencia.setValor(quantidade);
+            transferencia.setContaOrigem(contaOrigem);
+            transferencia.setContaDestino(contaDestino);
+
+            transferenciaDAO.salvar(transferencia);
+            return new ResponseEntity<Transferencia>(transferencia, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
