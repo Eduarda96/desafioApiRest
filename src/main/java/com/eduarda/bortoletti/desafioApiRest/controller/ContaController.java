@@ -21,8 +21,8 @@ public class ContaController {
     private Gson gson = new Gson();
     private String msgRetorno;
     private String msgErro;*/
-    private Conta contaOrigem;
-    private Conta contaDestino;
+    private Conta contaOrigem = new Conta();
+    private Conta contaDestino = new Conta();
     @Autowired
     ContaDAO contaDAO;
     @Autowired
@@ -51,7 +51,7 @@ public class ContaController {
         return "Ola";
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/efetuarTransferencia")
+    /*@RequestMapping(method = RequestMethod.GET, path = "/efetuarTransferencia")
     public ResponseEntity<String> transferencia(Transferencia transferencia) {
 //        inicializarContas();
         ComprovanteTransferencia comprovanteTransferencia = efetuarTransferencia(transferencia);
@@ -60,7 +60,7 @@ public class ContaController {
         } else {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
 
 
     private void inicializarContas() {
@@ -69,8 +69,9 @@ public class ContaController {
     }
 
     //efetua transferencia e verica qual conta está retirando e qual está recebendo
+    @RequestMapping(method=RequestMethod.GET, path="/efetuarTransferencia" )
     private ComprovanteTransferencia efetuarTransferencia(Transferencia transferencia) {
-        ComprovanteTransferencia comprovante = new ComprovanteTransferencia();
+       /* ComprovanteTransferencia comprovante = new ComprovanteTransferencia();
 //        comprovante.setCodTransferencia(transferencia.hashCode());
         int conta = transferencia.getContaOrigem().getConta();
 
@@ -103,8 +104,34 @@ public class ContaController {
         } else {
             return null;
         }
+*/
+        List<Conta> listar = contaDAO.listar();
+        List<Transferencia> listaTransferencia = transferenciaDAO.listar();
+        double saldoOrigem = 0;
+        double saldoDestino = 0;
 
-        return comprovante;
+        for(Conta conta : listar){
+            for(Transferencia transf : listaTransferencia){
+                    saldoOrigem = conta.getSaldo() - transf.getValor();
+                    saldoDestino = conta.getSaldo() + transferencia.getValor();
+            }
+        }
+
+        ComprovanteTransferencia comprovanteTransferencia = new ComprovanteTransferencia();
+        comprovanteTransferencia.setCodTransferencia(1);
+
+
+        contaOrigem.setSaldo(saldoOrigem);
+        contaDestino.setSaldo(saldoDestino);
+        comprovanteTransferencia.setContaOrigem(contaOrigem);
+        comprovanteTransferencia.setContaDestino(contaDestino);
+        return comprovanteTransferencia;
 
     }
+
+   /* @RequestMapping(method=RequestMethod.PUT, path="depositar/{quantidade}/{id}" )
+    public ResponseEntity<?> depositar(@PathVariable double quantidade, @PathVariable Long id){
+        this.contaDAO.deposita();
+        return new ResponseEntity<>( HttpStatus.OK);
+    }*/
 }
