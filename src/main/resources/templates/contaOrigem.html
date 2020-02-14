@@ -14,10 +14,11 @@
           href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
           crossorigin="anonymous">
+
 </head>
 <body>
 <div class="container my-5">
-    <h3> Adicionar Conta</h3>
+    <h3> Adicionar Dados da Conta Destino</h3>
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
@@ -26,7 +27,9 @@
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="conta" class="col-form-label">Conta</label> <input
-                                type="number"  class="form-control" id="conta" name="conta"
+                                type="number"  class="form-control" id="conta" name="conta" value=""
+                                required oninvalid="this.setCustomValidity('Informe o numero da conta')"
+                                onchange="try{setCustomValidity('')}catch(e){}"
                                 placeholder="Informe o numero da conta">
 <!--                                th:if="${#fields.hasErrors('conta')}" th:errors="*{conta}"-->
                             <span class="text-danger"></span>
@@ -34,6 +37,9 @@
                         <div class="form-group col-md-8">
                             <label for="agencia" class="col-form-label">Agência</label> <input
                                 type="number" class="form-control" id="agencia" name="agencia"
+                                value=""
+                                required oninvalid="this.setCustomValidity('Informe o numero da agencia')"
+                                onchange="try{setCustomValidity('')}catch(e){}"
                                 placeholder="agencia">
 <!--                                th:if="${#fields.hasErrors('agencia')}" th:errors="*{agencia}"-->
                             <span class="text-danger"></span>
@@ -42,6 +48,9 @@
                         <div class="form-group col-md-8">
                             <label for="nome" class="col-form-label">Nome</label> <input
                                 type="text" class="form-control" name="nome"
+                                value=""
+                                required oninvalid="this.setCustomValidity('Informe o nome do destinátario')"
+                                onchange="try{setCustomValidity('')}catch(e){}"
                                 id="nome" placeholder="nome">
 <!--                                th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"-->
                         </div>
@@ -58,5 +67,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

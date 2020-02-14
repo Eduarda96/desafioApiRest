@@ -52,10 +52,11 @@ public class ContaController {
     }
 
     @PostMapping("/transferencia")
-    public Transferencia criarTransferencia(@Valid @ModelAttribute Transferencia transferencia) {
+    public ModelAndView criarTransferencia(@Valid @ModelAttribute Transferencia transferencia) {
             transferencia.setContaOrigem(contaDAO.listar().get(0));
             transferencia.setContaDestino(contaDAO.listar().get(1));
-        return transferenciaDAO.salvar(transferencia);
+        transferenciaDAO.salvar(transferencia);
+        return  new ModelAndView("comprovante");
     }
 
     @GetMapping("/transferencia")
