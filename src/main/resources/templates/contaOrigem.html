@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="UTF-8">
+<!--    <meta http-equiv="x-ua-compatible" content="ie=edge">-->
     <title>Add User</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="container my-5">
-    <h3> Adicionar Conta Origem</h3>
+    <h3> Adicionar Conta</h3>
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
@@ -26,28 +26,28 @@
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="conta" class="col-form-label">Conta</label> <input
-                                type="text"  class="form-control" id="conta" th:value="${conta}"
+                                type="number"  class="form-control" id="conta" name="conta"
                                 placeholder="Informe o numero da conta">
 <!--                                th:if="${#fields.hasErrors('conta')}" th:errors="*{conta}"-->
                             <span class="text-danger"></span>
                         </div>
-                        <!--<div class="form-group col-md-8">
+                        <div class="form-group col-md-8">
                             <label for="agencia" class="col-form-label">Agência</label> <input
-                                type="text" class="form-control" id="agencia" th:value="${agencia}"
+                                type="number" class="form-control" id="agencia" name="agencia"
                                 placeholder="agencia">
-&lt;!&ndash;                                th:if="${#fields.hasErrors('agencia')}" th:errors="*{agencia}"&ndash;&gt;
+<!--                                th:if="${#fields.hasErrors('agencia')}" th:errors="*{agencia}"-->
                             <span class="text-danger"></span>
-                        </div>-->
+                        </div>
 
                         <div class="form-group col-md-8">
                             <label for="nome" class="col-form-label">Nome</label> <input
-                                type="text" class="form-control" th:value="${nome}"
+                                type="text" class="form-control" name="nome"
                                 id="nome" placeholder="nome">
 <!--                                th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"-->
                         </div>
                         <div class="form-group col-md-8">
                             <label for="saldo" class="col-form-label">Saldo</label> <input
-                                type="text" class="form-control" th:value="${saldo}"
+                                type="text" class="form-control" name="saldo"
                                 id="saldo" placeholder="saldo">
                             <!--                                th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"-->
                         </div>

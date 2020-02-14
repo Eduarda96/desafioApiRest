@@ -15,14 +15,17 @@ public class Conta {
     private int conta;
     @Column(name = "saldo")
     private double saldo;
+    @Column(name = "agencia")
+    private int agencia;
 
     public Conta() {
     }
 
-    public Conta(String nome, int conta, double saldo) {
+    public Conta(String nome, int conta, double saldo, int agencia) {
         this.nome = nome;
         this.conta = conta;
         this.saldo = saldo;
+        this.agencia = agencia;
     }
 
 
@@ -56,5 +59,13 @@ public class Conta {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public int getAgencia() {
+        return agencia;
+    }
+
+    public void setAgencia(int agencia) {
+        this.agencia = agencia;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -31,7 +32,7 @@ public class ContaController {
     TransferenciaDAO transferenciaDAO;
 
     @PostMapping("/conta")
-    public Conta criarConta(@Valid @RequestBody Conta conta) {
+    public Conta criarConta(@Valid @ModelAttribute Conta conta) {
         return contaDAO.salvar(conta);
     }
 
@@ -41,7 +42,7 @@ public class ContaController {
     }
 
     @PostMapping("/transferencia")
-    public Transferencia criarTransferencia(@Valid @RequestBody Transferencia transferencia) {
+    public Transferencia criarTransferencia(@Valid @ModelAttribute Transferencia transferencia) {
         return transferenciaDAO.salvar(transferencia);
     }
 
@@ -55,60 +56,8 @@ public class ContaController {
         return new ModelAndView("contaOrigem");
     }
 
-    /*@RequestMapping(method = RequestMethod.GET, path = "/efetuarTransferencia")
-    public ResponseEntity<String> transferencia(Transferencia transferencia) {
-//        inicializarContas();
-        ComprovanteTransferencia comprovanteTransferencia = efetuarTransferencia(transferencia);
-        if (comprovanteTransferencia != null) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
-
-
-    private void inicializarContas() {
-        contaOrigem = new Conta("Eduarda Bortoletti", 324, 1500);
-        contaDestino = new Conta("Brenda Danni", 432, 2000);
-    }
-
-    //efetua transferencia e verica qual conta está retirando e qual está recebendo
     @RequestMapping(method = RequestMethod.GET, path = "/efetuarTransferencia")
     private ComprovanteTransferencia efetuarTransferencia(Transferencia transferencia) {
-       /* ComprovanteTransferencia comprovante = new ComprovanteTransferencia();
-//        comprovante.setCodTransferencia(transferencia.hashCode());
-        int conta = transferencia.getContaOrigem().getConta();
-
-        if (conta == contaOrigem.getConta()) {
-            if (transferencia.getValor() > contaOrigem.getSaldo()) {
-                return null;
-            }
-
-            double saldoOrigem = contaDestino.getSaldo() - transferencia.getValor();
-            double saldoDestino = contaOrigem.getSaldo() + transferencia.getValor();
-
-            contaOrigem.setSaldo(saldoOrigem);
-            contaDestino.setSaldo(saldoDestino);
-
-            comprovante.setContaOrigem(contaOrigem);
-            comprovante.setContaDestino(contaDestino);
-        } else if (conta == contaDestino.getConta()) {
-            if (transferencia.getValor() > contaDestino.getSaldo()) {
-                return null;
-            }
-
-            double saldoOrigem = contaDestino.getSaldo() - transferencia.getValor();
-            double saldoDestino = contaOrigem.getSaldo() + transferencia.getValor();
-
-            contaOrigem.setSaldo(saldoOrigem);
-            contaDestino.setSaldo(saldoDestino);
-
-            comprovante.setContaOrigem(contaOrigem);
-            comprovante.setContaDestino(contaDestino);
-        } else {
-            return null;
-        }
-*/
         List<Conta> listar = contaDAO.listar();
         List<Transferencia> listaTransferencia = transferenciaDAO.listar();
         double saldoOrigem = 0;
@@ -136,9 +85,9 @@ public class ContaController {
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = "depositar/{quantidade}/{id}")
+    @RequestMapping(method = RequestMethod.PUT, path = "/depositar/{quantidade}/{id}")
     public ResponseEntity<Transferencia> depositar(@PathVariable double quantidade,
-                                                   @PathVariable Long id, @Valid @RequestBody Transferencia newTransf) {
+                                                   @PathVariable Long id, @Valid @ModelAttribute Transferencia newTransf) {
         Optional<Transferencia> transferenciaOptional = transferenciaDAO.findById(id);
         contaOrigem = contaDAO.listar().get(0);
         contaDestino = contaDAO.listar().get(1);
