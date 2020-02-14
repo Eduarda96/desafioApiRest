@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -31,8 +30,19 @@ public class ContaController {
     @Autowired
     TransferenciaDAO transferenciaDAO;
 
+
+    @RequestMapping("/")
+    public ModelAndView menu() {
+        return new ModelAndView("menuPrincipal");
+    }
+
     @PostMapping("/conta")
     public Conta criarConta(@Valid @ModelAttribute Conta conta) {
+        if (conta.getId() == 1) {
+            conta.setSaldo(2000);
+        } else {
+            conta.setSaldo(1000);
+        }
         return contaDAO.salvar(conta);
     }
 
@@ -43,6 +53,8 @@ public class ContaController {
 
     @PostMapping("/transferencia")
     public Transferencia criarTransferencia(@Valid @ModelAttribute Transferencia transferencia) {
+            transferencia.setContaOrigem(contaDAO.listar().get(0));
+            transferencia.setContaDestino(contaDAO.listar().get(1));
         return transferenciaDAO.salvar(transferencia);
     }
 
@@ -51,9 +63,21 @@ public class ContaController {
         return transferenciaDAO.listar();
     }
 
-    @RequestMapping("/")
-    public ModelAndView home() {
+    @RequestMapping("/cadastroConta")
+    public ModelAndView telaConta(@Valid @ModelAttribute Conta conta) {
+        conta.setNome("João");
+        conta.setAgencia(5555);
+        conta.setConta(2222);
+        conta.setSaldo(2000);
+        contaDAO.salvar(conta);
         return new ModelAndView("contaOrigem");
+    }
+
+    @RequestMapping("/informarTransferencia")
+    public ModelAndView telaTransferencia(@Valid @ModelAttribute Conta conta) {
+        conta.setSaldo(1000);
+        contaDAO.salvar(conta);
+        return new ModelAndView("transferencia");
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/efetuarTransferencia")
@@ -63,21 +87,23 @@ public class ContaController {
         double saldoOrigem = 0;
         double saldoDestino = 0;
 
-        for (Conta conta : listar) {
-            for (Transferencia transf : listaTransferencia) {
-                if (conta.getId().equals(transf.getContaOrigem().getId())) {
-                    saldoOrigem = conta.getSaldo() - transf.getValor();
-                }
-                if (conta.getId().equals(transf.getContaDestino().getId())) {
-                    saldoDestino = conta.getSaldo() + transferencia.getValor();
-                }
-            }
-        }
+        saldoOrigem = listar.get(0).getSaldo() - listaTransferencia.get(0).getValor();
+
+        saldoDestino = listar.get(1).getSaldo() + listaTransferencia.get(0).getValor();
 
         ComprovanteTransferencia comprovanteTransferencia = new ComprovanteTransferencia();
         comprovanteTransferencia.setCodTransferencia(1);
 
+        contaOrigem.setId(listar.get(0).getId());
+        contaOrigem.setConta(listar.get(0).getConta());
+        contaOrigem.setAgencia(listar.get(0).getAgencia());
+        contaOrigem.setNome(listar.get(0).getNome());
         contaOrigem.setSaldo(saldoOrigem);
+
+        contaDestino.setId(listar.get(1).getId());
+        contaDestino.setConta(listar.get(1).getConta());
+        contaDestino.setAgencia(listar.get(1).getAgencia());
+        contaDestino.setNome(listar.get(1).getNome());
         contaDestino.setSaldo(saldoDestino);
         comprovanteTransferencia.setContaOrigem(contaOrigem);
         comprovanteTransferencia.setContaDestino(contaDestino);
