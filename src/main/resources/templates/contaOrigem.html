@@ -27,21 +27,31 @@
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="conta" class="col-form-label">Conta</label> <input
-                                type="number"  class="form-control" id="conta" name="conta" value=""
+                                class="form-control" id="conta" name="conta" value=""
                                 required oninvalid="this.setCustomValidity('Informe o numero da conta')"
-                                onchange="try{setCustomValidity('')}catch(e){}"
+                                onchange="try{setCustomValidity('')}catch(e){}" type="text" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
                                 placeholder="Informe o numero da conta">
 <!--                                th:if="${#fields.hasErrors('conta')}" th:errors="*{conta}"-->
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
                             <label for="agencia" class="col-form-label">Agência</label> <input
-                                type="number" class="form-control" id="agencia" name="agencia"
+                                type="text" class="form-control" id="agencia" name="agencia"
                                 value=""
                                 required oninvalid="this.setCustomValidity('Informe o numero da agencia')"
-                                onchange="try{setCustomValidity('')}catch(e){}"
+                                onchange="try{setCustomValidity('')}catch(e){}" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
                                 placeholder="agencia">
 <!--                                th:if="${#fields.hasErrors('agencia')}" th:errors="*{agencia}"-->
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="agencia" class="col-form-label">Cpf</label> <input
+                                type="text" class="form-control" id="cpf" name="cpf"
+                                value=""
+                                required oninvalid="this.setCustomValidity('Informe o cpf)"
+                                onchange="try{setCustomValidity('')}catch(e){}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                                placeholder="cpf">
+                            <!--                                th:if="${#fields.hasErrors('agencia')}" th:errors="*{agencia}"-->
                             <span class="text-danger"></span>
                         </div>
 

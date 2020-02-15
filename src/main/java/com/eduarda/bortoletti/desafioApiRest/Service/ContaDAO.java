@@ -26,26 +26,7 @@ public class ContaDAO {
         return (List<Conta>) contaRepository.findAll();
     }
 
-    public void deposita(Transferencia transferencia) {
-        Conta origem = new Conta();
-        Conta destino = new Conta();
-        ComprovanteTransferencia comprovanteTransferencia = new ComprovanteTransferencia();
-        comprovanteTransferencia.setCodTransferencia(transferencia.hashCode());
-
-        double saldoOrigem = origem.getSaldo() - transferencia.getValor();
-        double saldoDestino = destino.getSaldo() + transferencia.getValor();
-
-        origem.setSaldo(saldoOrigem);
-        destino.setSaldo(saldoDestino);
-        comprovanteTransferencia.setContaOrigem(origem);
-        comprovanteTransferencia.setContaDestino(destino);
-
-
-
-
-    }
-
-    public Optional<Conta> findById(Long id) {
-        return contaRepository.findById(id);
+    public void deletar(Conta conta){
+        contaRepository.delete(conta);
     }
 }

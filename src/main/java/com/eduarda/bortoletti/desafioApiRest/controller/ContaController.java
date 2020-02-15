@@ -19,10 +19,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ContaController {
-    /* private List<Double> quantidadeNotasEnviadas;
-    private Gson gson = new Gson();
-    private String msgRetorno;
-    private String msgErro;*/
     private Conta contaOrigem = new Conta();
     private Conta contaDestino = new Conta();
     @Autowired
@@ -33,17 +29,13 @@ public class ContaController {
 
     @RequestMapping("/")
     public ModelAndView menu() {
-        return new ModelAndView("menuPrincipal");
-    }
-
-    @PostMapping("/conta")
-    public Conta criarConta(@Valid @ModelAttribute Conta conta) {
-        if (conta.getId() == 1) {
-            conta.setSaldo(2000);
-        } else {
-            conta.setSaldo(1000);
+        if(contaDAO.listar().size()>0) {
+            contaDAO.deletar(contaDAO.listar().get(0));
+            if(contaDAO.listar().size()>0){
+                contaDAO.deletar(contaDAO.listar().get(0));
+            }
         }
-        return contaDAO.salvar(conta);
+        return new ModelAndView("menuPrincipal");
     }
 
     @GetMapping("/conta")
@@ -66,16 +58,24 @@ public class ContaController {
 
     @RequestMapping("/cadastroConta")
     public ModelAndView telaConta(@Valid @ModelAttribute Conta conta) {
+        if(contaDAO.listar().size()>2) {
+            contaDAO.deletar(contaDAO.listar().get(1));
+        }
+        conta.setId((long) 1);
         conta.setNome("João");
         conta.setAgencia(5555);
         conta.setConta(2222);
         conta.setSaldo(2000);
+        conta.setCpf("88996655447");
         contaDAO.salvar(conta);
         return new ModelAndView("contaOrigem");
     }
 
     @RequestMapping("/informarTransferencia")
     public ModelAndView telaTransferencia(@Valid @ModelAttribute Conta conta) {
+        if(contaDAO.listar().size()==2) {
+            contaDAO.deletar(contaDAO.listar().get(1));
+        }
         conta.setSaldo(1000);
         contaDAO.salvar(conta);
         return new ModelAndView("transferencia");

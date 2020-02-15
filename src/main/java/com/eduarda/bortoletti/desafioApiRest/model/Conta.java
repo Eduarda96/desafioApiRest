@@ -17,15 +17,18 @@ public class Conta {
     private double saldo;
     @Column(name = "agencia")
     private int agencia;
+    @Column(name = "cpf")
+    private String cpf;
 
     public Conta() {
     }
 
-    public Conta(String nome, int conta, double saldo, int agencia) {
+    public Conta(String nome, int conta, double saldo, int agencia, String cpf) {
         this.nome = nome;
         this.conta = conta;
         this.saldo = saldo;
         this.agencia = agencia;
+        this.cpf = cpf;
     }
 
 
@@ -67,5 +70,13 @@ public class Conta {
 
     public void setAgencia(int agencia) {
         this.agencia = agencia;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
