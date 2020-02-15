@@ -11,17 +11,21 @@ import java.util.Optional;
 @Service
 public class TransferenciaDAO {
     @Autowired
-    TransferenciaRepository repository;
+    TransferenciaRepository transferenciaRepository;
 
     public Optional<Transferencia> findById(Long id) {
-        return repository.findById(id);
+        return transferenciaRepository.findById(id);
     }
 
     public Transferencia salvar(Transferencia transferencia) {
-        return repository.save(transferencia);
+        return transferenciaRepository.save(transferencia);
     }
 
     public List<Transferencia> listar() {
-        return (List<Transferencia>) repository.findAll();
+        return (List<Transferencia>) transferenciaRepository.findAll();
+    }
+
+    public void deletar(Transferencia transferencia){
+        transferenciaRepository.delete(transferencia);
     }
 }

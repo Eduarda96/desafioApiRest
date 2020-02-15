@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.swing.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +27,11 @@ public class ContaController {
     @Autowired
     TransferenciaDAO transferenciaDAO;
 
-
     @RequestMapping("/")
     public ModelAndView menu() {
+        if(transferenciaDAO.listar().size()>0){
+            transferenciaDAO.deletar(transferenciaDAO.listar().get(0));
+        }
         if(contaDAO.listar().size()>0) {
             contaDAO.deletar(contaDAO.listar().get(0));
             if(contaDAO.listar().size()>0){
@@ -76,6 +79,7 @@ public class ContaController {
         if(contaDAO.listar().size()==2) {
             contaDAO.deletar(contaDAO.listar().get(1));
         }
+
         conta.setSaldo(1000);
         contaDAO.salvar(conta);
         return new ModelAndView("transferencia");

@@ -26,13 +26,14 @@
                     <div class="row">
                         <div class="form-group col-md-8">
                             <label for="transferencia" class="col-form-label">Valor Transferencia</label> <input
-                                type="number"  class="form-control" id="transferencia" name="valor"
+                                type="text"  class="form-control" id="transferencia" name="valor"  required oninvalid="this.setCustomValidity('Informe o numero da agencia')"
+                                onchange="try{setCustomValidity('')}catch(e){}"  oninput="this.value=this.value.replace(/[^0-9]/g,'');"
                                 placeholder="Informe o valor que será transferido">
                             <!--                                th:if="${#fields.hasErrors('conta')}" th:errors="*{conta}"-->
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary">Transferir</button>
+                            <button type="submit"  class="btn btn-primary">Transferir</button>
                         </div>
                         <div class="form-group col-md-8"></div>
 
