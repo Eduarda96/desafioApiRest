@@ -10,7 +10,7 @@ public class Transferencia {
     @Column(name = "valor")
     private double valor;
     @ManyToOne
-    private Conta contaOrigem,contaDestino;
+    private ContaCorrente contaCorrenteOrigem, contaCorrenteDestino;
 
     public double getValor() {
         return valor;
@@ -20,19 +20,19 @@ public class Transferencia {
         this.valor = valor;
     }
 
-    public Conta getContaOrigem() {
-        return contaOrigem;
+    public ContaCorrente getContaCorrenteOrigem() {
+        return contaCorrenteOrigem;
     }
 
-    public void setContaOrigem(Conta contaOrigem) {
-        this.contaOrigem = contaOrigem;
+    public void setContaCorrenteOrigem(ContaCorrente contaCorrenteOrigem) {
+        this.contaCorrenteOrigem = contaCorrenteOrigem;
     }
 
-    public Conta getContaDestino() {
-        return contaDestino;
+    public ContaCorrente getContaCorrenteDestino() {
+        return contaCorrenteDestino;
     }
 
-    public void setContaDestino(Conta contaDestino) {
-        this.contaDestino = contaDestino;
+    public void setContaCorrenteDestino(ContaCorrente contaCorrenteDestino) {
+        this.contaCorrenteDestino = contaCorrenteDestino;
     }
 }

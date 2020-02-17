@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity(name = "conta")
-public class Conta {
+public class ContaCorrente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,10 +20,10 @@ public class Conta {
     @Column(name = "cpf")
     private String cpf;
 
-    public Conta() {
+    public ContaCorrente() {
     }
 
-    public Conta(String nome, int conta, double saldo, int agencia, String cpf) {
+    public ContaCorrente(String nome, int conta, double saldo, int agencia, String cpf) {
         this.nome = nome;
         this.conta = conta;
         this.saldo = saldo;

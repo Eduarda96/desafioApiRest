@@ -2,14 +2,11 @@ package com.eduarda.bortoletti.desafioApiRest.Service;
 
 import com.eduarda.bortoletti.desafioApiRest.Repository.ContaRepository;
 import com.eduarda.bortoletti.desafioApiRest.Repository.TransferenciaRepository;
-import com.eduarda.bortoletti.desafioApiRest.model.ComprovanteTransferencia;
-import com.eduarda.bortoletti.desafioApiRest.model.Conta;
-import com.eduarda.bortoletti.desafioApiRest.model.Transferencia;
+import com.eduarda.bortoletti.desafioApiRest.model.ContaCorrente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ContaDAO {
@@ -18,15 +15,15 @@ public class ContaDAO {
     @Autowired
     TransferenciaRepository transferenciaRepository;
 
-    public Conta salvar(Conta conta) {
-        return contaRepository.save(conta);
+    public ContaCorrente salvar(ContaCorrente contaCorrente) {
+        return contaRepository.save(contaCorrente);
     }
 
-    public List<Conta> listar() {
-        return (List<Conta>) contaRepository.findAll();
+    public List<ContaCorrente> listar() {
+        return (List<ContaCorrente>) contaRepository.findAll();
     }
 
-    public void deletar(Conta conta){
-        contaRepository.delete(conta);
+    public void deletar(ContaCorrente contaCorrente){
+        contaRepository.delete(contaCorrente);
     }
 }

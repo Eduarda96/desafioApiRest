@@ -10,7 +10,7 @@ public class ComprovanteTransferencia {
     @Column(name = "cod_transferencia")
     private int codTransferencia;
     @ManyToOne(fetch = FetchType.EAGER)
-    private Conta contaOrigem, contaDestino;
+    private ContaCorrente contaCorrenteOrigem, contaCorrenteDestino;
 
     public int getCodTransferencia() {
         return codTransferencia;
@@ -20,19 +20,19 @@ public class ComprovanteTransferencia {
         this.codTransferencia = codTransferencia;
     }
 
-    public Conta getContaOrigem() {
-        return contaOrigem;
+    public ContaCorrente getContaCorrenteOrigem() {
+        return contaCorrenteOrigem;
     }
 
-    public void setContaOrigem(Conta contaOrigem) {
-        this.contaOrigem = contaOrigem;
+    public void setContaCorrenteOrigem(ContaCorrente contaCorrenteOrigem) {
+        this.contaCorrenteOrigem = contaCorrenteOrigem;
     }
 
-    public Conta getContaDestino() {
-        return contaDestino;
+    public ContaCorrente getContaCorrenteDestino() {
+        return contaCorrenteDestino;
     }
 
-    public void setContaDestino(Conta contaDestino) {
-        this.contaDestino = contaDestino;
+    public void setContaCorrenteDestino(ContaCorrente contaCorrenteDestino) {
+        this.contaCorrenteDestino = contaCorrenteDestino;
     }
 }

@@ -26,36 +26,36 @@
                         <div class="form-group col-md-8">
                             <label for="conta" class="col-form-label">Conta</label> <input
                                 class="form-control" id="conta" name="conta" value=""
-                                required oninvalid="this.setCustomValidity('Informe o numero da conta')"
+                                required oninvalid="this.setCustomValidity('Informe o número da conta')"
                                 onchange="try{setCustomValidity('')}catch(e){}" type="text" maxlength="6" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                                placeholder="Informe o numero da conta">
+                                placeholder="Informe o número da conta">
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
                             <label for="agencia" class="col-form-label">Agência</label> <input
                                 type="text" class="form-control" id="agencia" name="agencia"
                                 value=""
-                                required oninvalid="this.setCustomValidity('Informe o numero da agência')"
+                                required oninvalid="this.setCustomValidity('Informe o número da Agência')"
                                 onchange="try{setCustomValidity('')}catch(e){}" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                                placeholder="agencia">
+                                placeholder="Informe o número da Agência">
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
                             <label for="agencia" class="col-form-label">Cpf</label> <input
                                 type="text" class="form-control" id="cpf" name="cpf"
                                 value=""
-                                required oninvalid="this.setCustomValidity('Informe o cpf)"
+                                required oninvalid="this.setCustomValidity('Informe o CPF)"
                                 onchange="try{setCustomValidity('')}catch(e){}" maxlength="11" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                                placeholder="cpf">
+                                placeholder="Informe o CPF">
                             <span class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-8">
                             <label for="nome" class="col-form-label">Nome</label> <input
                                 type="text" class="form-control" name="nome"
-                                value=""
-                                required oninvalid="this.setCustomValidity('Informe o nome do destinátario')"
+                                value=""  oninput="this.value=this.value.replace(/[^a-zA-Z.]/g,'');"
+                                required oninvalid="this.setCustomValidity('Informe o nome do destinatário')"
                                 onchange="try{setCustomValidity('')}catch(e){}"
-                                id="nome" placeholder="nome">
+                                id="nome" placeholder="Informe o nome do Destinatário">
                         </div>
                         <div class="col-md-6">
                             <button type="submit"   class="btn btn-primary">Adicionar</button>
