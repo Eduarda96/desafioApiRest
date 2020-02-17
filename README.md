@@ -1,19 +1,8 @@
 # desafioApiRest
 # Executando o aplicativo localmente
 Para executar o aplicativo em sua máquina local, você deve clicar com o botão  direito sobre a classe principal  DesafioApiRestAplication e selecionar a opção Run 'DesafioApiRest.main()'
-Como alternativa, você pode usar o plugin Spring Boot Maven adicionando no seu arquivo pom.xml o seguinte código:
-<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-  
-Depois no terminal execute o seguinte comando:
+Como alternativa, você pode usar o plugin Spring Boot Maven,acessando o projeto via terminal e executando o seguinte comando:
 mvn spring-boot: run
-
 # Funcionamento do Banco h2:
 http://localhost:8080/h2/
 usuário:root
