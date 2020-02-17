@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--    <meta http-equiv="x-ua-compatible" content="ie=edge">-->
-    <title>Add User</title>
+    <title>Transferir</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -17,7 +16,7 @@
 </head>
 <body>
 <div class="container my-5">
-    <h3> Adicionar Conta</h3>
+    <h3> Transfêrencia</h3>
     <div class="card">
         <div class="card-body">
             <div class="col-md-10">
@@ -25,18 +24,16 @@
                       th:object="${transferencia}" method="post">
                     <div class="row">
                         <div class="form-group col-md-8">
-                            <label for="transferencia" class="col-form-label">Valor Transferencia</label> <input
+                            <label for="transferencia" class="col-form-label">Valor Transferência</label> <input
                                 type="text"  class="form-control" id="transferencia" name="valor"  required oninvalid="this.setCustomValidity('Informe o numero da agencia')"
                                 onchange="try{setCustomValidity('')}catch(e){}"  oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                                placeholder="Informe o valor que será transferido">
-                            <!--                                th:if="${#fields.hasErrors('conta')}" th:errors="*{conta}"-->
+                                placeholder="Informe o valor que será transferido" min="20" max="2000" step="1">
                             <span class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
-                            <button type="submit"  class="btn btn-primary">Transferir</button>
+                            <button type="submit" class="btn btn-primary">Transferir</button>
                         </div>
                         <div class="form-group col-md-8"></div>
-
                     </div>
                 </form>
             </div>
@@ -44,4 +41,6 @@
     </div>
 </div>
 </body>
+
+
 </html>
